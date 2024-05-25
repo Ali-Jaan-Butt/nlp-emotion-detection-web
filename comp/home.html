@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Model</title>
+    <style>
+        body {
+            background-color: #121212;
+            color: white;
+            text-align: center;
+            font-family: Arial, sans-serif;
+            padding-top: 50px;
+        }
+
+        .text-box {
+            border: 2px solid white;
+            padding: 20px;
+            display: inline-block;
+            margin: 20px;
+            font-size: 24px;
+            text-decoration: underline;
+        }
+
+        .input-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        .input-container input {
+            width: 500px;
+            padding: 10px 15px;
+            border: 2px solid white;
+            border-radius: 25px;
+            background: #1a1a1a;
+            color: white;
+            font-size: 18px;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .input-container input:focus {
+            border-color: #f39c12;
+            box-shadow: 0 0 10px #f39c12;
+        }
+
+        .input-container input::placeholder {
+            color: #bbbbbb;
+        }
+
+        .input-container label {
+            font-size: 18px;
+            margin-right: 15px;
+        }
+        .btn {
+            padding: 12px 24px;
+            font-size: 18px;
+            font-weight: bold;
+            color: #fff;
+            background-color: #f39c12;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
+            margin: 30px;
+        }
+
+        .btn:hover {
+            background-color: #e67e22;
+            transform: scale(1.05);
+        }
+        .refresh-button {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #121212;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            padding: 15px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+        .refresh-button:hover {
+            background-color: #e67e22;
+        }
+    </style>
+</head>
+<body style="background-color: #121212; color: white; text-align: center;">
+    <h1 style="font-size: 84px; text-decoration: underline;">NLP Text Emotion Detection</h1>
+    <div style="border: 2px solid white; padding: 20px; display: inline-block; margin: 20px; font-size: 20px;">
+        Welcome to our cutting-edge NLP Text Emotion Detection service! In the digital age, understanding human emotions has become more critical than ever. Our state-of-the-art technology leverages the power of Natural Language Processing (NLP) to detect and analyze emotions in text with unparalleled accuracy. On this web you can write your text of sentences and it will detect the emotions of the text.
+    </div>
+    <form method='post' action='{% url "prediction" %}'>
+        {% csrf_token %}
+        <div class="input-container">
+            <label for="sentence-input">Enter a sentence:</label>
+            <input type="text" id="sentence-input" name="textinput" placeholder="Type your sentence here...">
+        </div>
+        <button class="btn">Submit</button>
+    </form>
+   {% if messages %}
+        <div style="display: flex; align-items: center; justify-content: center; height: 100%; width: 100%;">
+            {% for message in messages %}
+                <div style="padding: 15px; background-color: #121212; color: #fff; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); max-width: 500px; text-align: center;">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+    <form action="{% url 'myapp' %}">
+        <button class="refresh-button">Refresh</button>
+    </form>
+</body>
+</html>
